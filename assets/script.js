@@ -204,18 +204,13 @@ $(function () {
 
       console.log(Number(siblingElId)); // converts to Number
 
-      const desc = $(".description").val(); // we can get the value of textarea
-
-      console.log(desc);
-
       // lets loop now
 
       for (let i = 0; i < schedule.length; i++) {
         console.log(schedule[i].time);
 
         if (schedule[i].time === Number(siblingElId)) {
-          console.log("match");
-          schedule[i].description = $(".description").val();
+          schedule[i].description = $("#" + schedule[i].time).val();
         }
       }
     });
