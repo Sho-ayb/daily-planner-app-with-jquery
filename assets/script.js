@@ -4,6 +4,10 @@
 
 - there will be a scheduler displaying the working hours of the day - 9am to 5pm, a text area allows for the user to add a schedule and this schedule can be saved to localStorage by clicking on the icon on the far right of each time-block. Saved schedules should remain persistent even after a browser refresh. 
 
+    - the user should be able to save the schedule by clicking on the saveBtn, which will store the schedule desc in the appropriate object in question e.g if the user clicks save on a particular time-slot the description will be saved to the object that matches the id of the textarea id. For this purpose all objects will contain an id number that will go along with the description when saved to localStorage. 
+
+    - note that the user will not be able to add a schedule or a description to previous times but can only add to the current and future schedules. This means that previous timeslots will need to be disabled. 
+
 
 - when the user opens the browser and views the scheduler - the current time of the day will be coloured different from past and future time-blocks. This present time-block should display a message in the description advising "Current time of day". 
 
@@ -16,20 +20,20 @@
     const schedule = [
 
       {
-
+        id: 1,
         time: 9, 
         description: ''
 
       }, 
 
       {
-
+        id: 2,
         time: 10, 
         description: ''
       }, 
 
       {
-
+        id: 3,
         time: 11,
         description: ''
 
@@ -40,6 +44,7 @@
 This way we can loop through each object and match the time property of the object against the current time and then apply a background color to each element in question based on past, present and future times. 
 
     - we can achieve this by simply saying: if schedule.time is less than current time then change element(s) to a different background color or if schedule.time is greater than current time then change element(s) to a different background color. 
+
 
 Additional
 
@@ -58,38 +63,47 @@ $(function () {
 
   const schedule = [
     {
+      id: 1,
       time: 9,
       description: "",
     },
     {
+      id: 2,
       time: 10,
       description: "",
     },
     {
+      id: 3,
       time: 11,
       description: "",
     },
     {
+      id: 4,
       time: 12,
       description: "",
     },
     {
+      id: 5,
       time: 13,
       description: "",
     },
     {
+      id: 6,
       time: 14,
       description: "",
     },
     {
+      id: 7,
       time: 15,
       description: "",
     },
     {
+      id: 8,
       time: 16,
       description: "",
     },
     {
+      id: 9,
       time: 17,
       description: "",
     },
@@ -119,7 +133,7 @@ $(function () {
 
     // return hour;
 
-    return 10; // returning this for testing purposes
+    return 13; // returning this for testing purposes
   };
 
   // lets create a function to change the background colour of the text area that matches the current hour
@@ -172,11 +186,49 @@ $(function () {
     }
   };
 
+  // we need a function now to add the schedule to the object description
+
+  const addSchedule = () => {
+    // lets attach an event listener on to the save button
+
+    $(".saveBtn").on("click", (e) => {
+      // we need to loop through the array of objects and check if the id of the schedule matches with the id of of textarea element, when there is a match, we want to save this schedule to the correct object by referencing the objects id
+
+      console.log(e.target.closest("button")); // returns the closest parent element specified, using this so that icon element is not returned when it is clicked..
+
+      const siblingEl = $(e.target).closest("button").prev(); // prev returns the immediate previous sibling of the element in the DOM
+
+      console.log(siblingEl[0].id); // this returns the id of the textarea element
+
+      const siblingElId = siblingEl[0].id; // this returns string
+
+      console.log(Number(siblingElId)); // converts to Number
+
+      const desc = $(".description").val(); // we can get the value of textarea
+
+      console.log(desc);
+
+      // lets loop now
+
+      for (let i = 0; i < schedule.length; i++) {
+        console.log(schedule[i].time);
+
+        if (schedule[i].time === Number(siblingElId)) {
+          console.log("match");
+          schedule[i].description = $(".description").val();
+        }
+      }
+    });
+  };
+
+  console.log(schedule);
+
   // lets create a init function here to execute all functions
 
   const init = () => {
     displayDate();
     changeTextArea(getCurrentTime());
+    addSchedule();
   };
 
   // lets invoke init
