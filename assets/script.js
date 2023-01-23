@@ -110,10 +110,38 @@ $(function () {
     $("#currentDay").text(currentDate);
   };
 
+  // lets create a function to get the current time and change the background colour of  the text area
+
+  const getCurrentTime = () => {
+    // lets get moment wrapper object to return to us the current hour only
+
+    const hour = now.format("h");
+
+    return hour;
+  };
+
+  // lets create a function to change the background colour of the text area that matches the current hour
+
+  const changeTextArea = (time) => {
+    // lets loop through the array of object and match the hour against time property
+
+    for (let i = 0; i < schedule.length; i++) {
+      // console.log(schedule[i].time);
+
+      if (schedule[i].time == time) {
+        // dont use strict equals here
+        console.log("the hour is ", time);
+
+        $("#" + time).css("background-color", "red");
+      }
+    }
+  };
+
   // lets create a init function here to execute all functions
 
   const init = () => {
     displayDate();
+    changeTextArea(getCurrentTime());
   };
 
   // lets invoke init
