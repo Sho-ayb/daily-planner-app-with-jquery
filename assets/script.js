@@ -74,23 +74,23 @@ $(function () {
       description: "",
     },
     {
-      time: 1,
+      time: 13,
       description: "",
     },
     {
-      time: 2,
+      time: 14,
       description: "",
     },
     {
-      time: 3,
+      time: 15,
       description: "",
     },
     {
-      time: 4,
+      time: 16,
       description: "",
     },
     {
-      time: 5,
+      time: 17,
       description: "",
     },
   ];
@@ -115,24 +115,59 @@ $(function () {
   const getCurrentTime = () => {
     // lets get moment wrapper object to return to us the current hour only
 
-    const hour = now.format("h");
+    const hour = now.format("H");
 
-    return hour;
+    // return hour;
+
+    return 10; // returning this for testing purposes
   };
 
   // lets create a function to change the background colour of the text area that matches the current hour
 
   const changeTextArea = (time) => {
+    // lets create an empty arrays here to store all the previous times and future times
+    const prevTimes = [];
+    const futureTimes = [];
+
     // lets loop through the array of object and match the hour against time property
 
     for (let i = 0; i < schedule.length; i++) {
       // console.log(schedule[i].time);
 
+      // present time
       if (schedule[i].time == time) {
         // dont use strict equals here
         console.log("the hour is ", time);
 
         $("#" + time).css("background-color", "red");
+      }
+
+      // previous time
+      if (schedule[i].time < time) {
+        prevTimes.push(schedule[i].time);
+      }
+
+      // future time
+      if (schedule[i].time > time) {
+        futureTimes.push(schedule[i].time);
+      }
+    }
+
+    console.log(prevTimes);
+    console.log(futureTimes);
+
+    // now we have pushed to these arrays, we need to check if the array is empty
+    // then we can loop through each item in the array and pass the time as the selector with jquery
+
+    if (prevTimes.length !== 0) {
+      for (let i = 0; i < prevTimes.length; i++) {
+        $("#" + prevTimes[i]).css("background-color", "grey");
+      }
+    }
+
+    if (futureTimes.lenth !== 0) {
+      for (let i = 0; i < futureTimes.length; i++) {
+        $("#" + futureTimes[i]).css("background-color", "limegreen");
       }
     }
   };
