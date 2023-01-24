@@ -215,15 +215,15 @@ $(function () {
     $(".saveBtn").on("click", (e) => {
       // we need to loop through the array of objects and check if the id of the schedule matches with the id of of textarea element, when there is a match, we want to save this schedule to the correct object by referencing the objects id
 
-      console.log(e.target.closest("button")); // returns the closest parent element specified, using this so that icon element is not returned when it is clicked..
+      // console.log(e.target.closest("button")); // returns the closest parent element specified, using this so that icon element is not returned when it is clicked..
 
       const siblingEl = $(e.target).closest("button").prev(); // prev returns the immediate previous sibling of the element in the DOM
 
-      console.log(siblingEl[0].id); // this returns the id of the textarea element
+      // console.log(siblingEl[0].id); // this returns the id of the textarea element
 
       const siblingElId = siblingEl[0].id; // this returns string
 
-      console.log(Number(siblingElId)); // converts to Number
+      // console.log("sibling id", Number(siblingElId)); // converts to Number
 
       console.log("before loop", scheduleRecord);
       console.log("inside schedule", schedule);
@@ -267,32 +267,18 @@ $(function () {
 
     console.log("keys: ", keys);
 
-    // now we can loop through the parsedSchedule and return the value stored in description back to the correct textarea
+    // lets create a variable here to store the textarea element
 
-    for (let i = 0; i < parsedSchedule.length; i++) {
-      console.log("inside display fn loop");
+    let textareaEl = $(".description");
 
-      console.log(
-        "keys: " + Number.parseInt(keys[i]) + " schedule",
-        schedule[i].id
-      );
+    console.log(textareaEl);
 
-      // Object.keys returned a string - need to convert to integer
-
-      if (Number(keys[i]) === schedule[i].id) {
-        const txtVal = parsedSchedule[i].description;
-
-        console.log(txtVal);
-
-        const textAreaEl = $(".description");
-
-        $.each(textAreaEl, function (key, value) {
-          console.log("key", key + " value", value);
-        });
+    $.each(textareaEl, function (key, value) {
+      console.log("key", key + " value", value.id);
+      if (key === 0 && value.id === 9) {
+        $(".description").val(parsedSchedule[key].description);
       }
-
-      // now we can add the txtVal to the element textarea
-    }
+    });
   };
 
   // lets create a init function here to execute all functions
