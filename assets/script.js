@@ -275,8 +275,16 @@ $(function () {
 
     $.each(textareaEl, function (key, value) {
       console.log("key", key + " value", value.id);
-      if (key === 0 && value.id === 9) {
-        $(".description").val(parsedSchedule[key].description);
+      if (key == 0 && value.id == 9) {
+        const textarea = $("#" + value.id);
+
+        textarea.val(parsedSchedule[0].description);
+      }
+
+      if (key == 1 && value.id == 10) {
+        const textarea = $("#" + value.id);
+
+        textarea.val(parsedSchedule[1].description);
       }
     });
   };
