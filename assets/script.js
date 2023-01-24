@@ -59,55 +59,72 @@ When the user clicks on save button - the buttons icon should change to another 
 $(function () {
   console.log("DOM has been loaded");
 
-  // lets create an array of objects to store all the schedules
+  // lets create an array of objects to store all the schedules - the ids need to start from 0 so that we can match the id later in code below
 
   const schedule = [
     {
-      id: 1,
+      id: 0,
       time: 9,
       description: "",
     },
     {
-      id: 2,
+      id: 1,
       time: 10,
       description: "",
     },
     {
-      id: 3,
+      id: 2,
       time: 11,
       description: "",
     },
     {
-      id: 4,
+      id: 3,
       time: 12,
       description: "",
     },
     {
-      id: 5,
+      id: 4,
       time: 13,
       description: "",
     },
     {
-      id: 6,
+      id: 5,
       time: 14,
       description: "",
     },
     {
-      id: 7,
+      id: 6,
       time: 15,
       description: "",
     },
     {
-      id: 8,
+      id: 7,
       time: 16,
       description: "",
     },
     {
-      id: 9,
+      id: 8,
       time: 17,
       description: "",
     },
   ];
+
+  // lets create the function to save the schedule to local storage
+
+  const storeToLocal = (scheduleRecord) => {
+    if (scheduleRecord.length !== 0) {
+      window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
+    }
+  };
+
+  // lets create the function to get the schedule records from local storage
+
+  const getFromLocal = () => {
+    const parsedSchedule =
+      JSON.parse(window.localStorage.getItem("schedule")) || [];
+
+    return parsedSchedule;
+  };
 
   // lets create a variable to store the date from momentjs
 
@@ -208,7 +225,17 @@ $(function () {
 
       console.log(Number(siblingElId)); // converts to Number
 
+      console.log("before loop", scheduleRecord);
+      console.log("inside schedule", schedule);
       // lets loop now
+
+      scheduleRecord = []; // this helped to clear out the array before pushing again - thanks to Abduraghman from AskBCS
+
+      // before we loop through the schedule object and push any new schedule record to the above array, lets check whether the array has records existing in the first instance. We can do that by invoking getFromLocal function and pass it to a variable here
+
+      // const parsedSchedule = getFromLocal();
+
+      // console.log(parsedSchedule[0]);
 
       for (let i = 0; i < schedule.length; i++) {
         if (schedule[i].time === Number(siblingElId)) {
@@ -220,35 +247,53 @@ $(function () {
             id: schedule[i].id,
             description: schedule[i].description,
           });
-          // we should pass the scheduleRecord array to this function and we can check if it is not empty
 
+          // we should pass the scheduleRecord array to this function and we can check if it is not empty
+          console.log("inside loop ", scheduleRecord);
           save(scheduleRecord);
         }
       }
     });
-
-    // lets get any current schedules from local storage
-
-    // const parsedSchedules = getFromLocal();
-
-    // console.log(parsedSchedules);
   };
 
-  // lets create the function to save the schedule to local storage
+  // lets create a function here to render any previous schedules from local storage to each individual time slot, we can do this by invoking the getFromLocal function which returns to us an array of objects stored to local storage. We can then use Object.keys to extract the ids of the array of objects and check this against the id of schedules array of objects.
 
-  const storeToLocal = (scheduleRecord) => {
-    if (scheduleRecord !== 0) {
-      window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
+  const displayAllSchedules = (parsedSchedule) => {
+    console.log("parsed array from local: ", parsedSchedule);
+
+    // lets extract the keys from parsedSchedule
+
+    const keys = Object.keys(parsedSchedule);
+
+    console.log("keys: ", keys);
+
+    // now we can loop through the parsedSchedule and return the value stored in description back to the correct textarea
+
+    for (let i = 0; i < parsedSchedule.length; i++) {
+      console.log("inside display fn loop");
+
+      console.log(
+        "keys: " + Number.parseInt(keys[i]) + " schedule",
+        schedule[i].id
+      );
+
+      // Object.keys returned a string - need to convert to integer
+
+      if (Number(keys[i]) === schedule[i].id) {
+        const txtVal = parsedSchedule[i].description;
+
+        console.log(txtVal);
+
+        const textAreaEl = $(".description");
+
+        $.each(textAreaEl, function (key, value) {
+          console.log("key", key + " value", value);
+        });
+      }
+
+      // now we can add the txtVal to the element textarea
     }
   };
-
-  // lets create the function to get the schedule records from local storage
-
-  const getFromLocal = () => {
-    return JSON.parse(window.localStorage.getItem("schedule")) || [];
-  };
-
-  console.log(schedule);
 
   // lets create a init function here to execute all functions
 
@@ -256,6 +301,7 @@ $(function () {
     displayDate();
     changeTextArea(getCurrentTime());
     addSchedule(storeToLocal); // passing this function to function
+    displayAllSchedules(getFromLocal());
   };
 
   // lets invoke init
