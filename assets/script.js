@@ -188,7 +188,11 @@ $(function () {
 
   // we need a function now to add the schedule to the object description
 
-  const addSchedule = () => {
+  const addSchedule = (save) => {
+    // lets create an empty array here to save schedules to store to localStorage
+
+    scheduleRecord = [];
+
     // lets attach an event listener on to the save button
 
     $(".saveBtn").on("click", (e) => {
@@ -207,13 +211,35 @@ $(function () {
       // lets loop now
 
       for (let i = 0; i < schedule.length; i++) {
-        console.log(schedule[i].time);
-
         if (schedule[i].time === Number(siblingElId)) {
           schedule[i].description = $("#" + schedule[i].time).val();
         }
+
+        if (schedule[i].description !== "") {
+          scheduleRecord.push({
+            id: schedule[i].id,
+            description: schedule[i].description,
+          });
+          // we should pass the scheduleRecord array to this function and we can check if it is not empty
+
+          save(scheduleRecord);
+        }
       }
     });
+  };
+
+  // lets create the function to save the schedule to local storage
+
+  const storeToLocal = (scheduleRecord) => {
+    if (scheduleRecord !== 0) {
+      window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
+    }
+  };
+
+  // lets create the function to get the schedule records from local storage
+
+  const getFromLocal = () => {
+    JSON.parse(window.localStorage.getItem("schedule")) || [];
   };
 
   console.log(schedule);
@@ -223,7 +249,7 @@ $(function () {
   const init = () => {
     displayDate();
     changeTextArea(getCurrentTime());
-    addSchedule();
+    addSchedule(storeToLocal); // passing this function to function
   };
 
   // lets invoke init
