@@ -226,6 +226,12 @@ $(function () {
         }
       }
     });
+
+    // lets get any current schedules from local storage
+
+    // const parsedSchedules = getFromLocal();
+
+    // console.log(parsedSchedules);
   };
 
   // lets create the function to save the schedule to local storage
@@ -239,7 +245,7 @@ $(function () {
   // lets create the function to get the schedule records from local storage
 
   const getFromLocal = () => {
-    JSON.parse(window.localStorage.getItem("schedule")) || [];
+    return JSON.parse(window.localStorage.getItem("schedule")) || [];
   };
 
   console.log(schedule);
