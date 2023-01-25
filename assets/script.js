@@ -283,138 +283,44 @@ $(function () {
       const text = $("#" + textarea.id);
 
       for (let i = 0; i < parsedSchedule.length; i++) {
-        if (parsedSchedule.indexOf(schedule[i].description) !== -1) {
-          if (parsedSchedule[i].time == 9 && textarea.id == 9) {
-            // textarea.val(parsedSchedule[i].description);
+        if (parsedSchedule[i].time == 9 && textarea.id == 9) {
+          console.log("inside loop");
 
-            console.log("inside loop");
-
-            text.val(parsedSchedule[i].description);
-          }
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 10 && textarea.id == 10) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 11 && textarea.id == 11) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 12 && textarea.id == 12) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 13 && textarea.id == 13) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 14 && textarea.id == 14) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 15 && textarea.id == 15) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 16 && textarea.id == 16) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
 
         if (parsedSchedule[i].time == 17 && textarea.id == 17) {
-          // textarea.val(parsedSchedule[i].description);
+          text.val(parsedSchedule[i].description);
         }
       }
-
-      // if (key == 0 && value.id == 9) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 1 && value.id == 10) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 2 && value.id == 11) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 3 && value.id == 12) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 4 && value.id == 13) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 5 && value.id == 14) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 6 && value.id == 15) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 7 && value.id == 16) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
-
-      // if (key == 8 && value.id == 17) {
-      //   const textarea = $("#" + value.id);
-
-      //   for (let i = 0; i < parsedSchedule.length; i++) {
-      //     if (parsedSchedule[i].id == key) {
-      //       textarea.val(parsedSchedule[i].description);
-      //     }
-      //   }
-      // }
     });
   };
 
