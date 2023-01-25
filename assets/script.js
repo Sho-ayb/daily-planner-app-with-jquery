@@ -109,19 +109,20 @@ $(function () {
     },
   ];
 
+  console.log("Schedule: ", schedule);
+
   // lets create the function to save the schedule to local storage
 
   const storeToLocal = (scheduleRecord) => {
-    if (scheduleRecord.length !== 0) {
-      window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
-    }
+    window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
   };
 
   // lets create the function to get the schedule records from local storage
 
   const getFromLocal = () => {
-    const parsedSchedule =
-      JSON.parse(window.localStorage.getItem("schedule")) || [];
+    const parsedSchedule = window.localStorage.getItem("schedule")
+      ? JSON.parse(window.localStorage.getItem("schedule"))
+      : [];
 
     return parsedSchedule;
   };
@@ -219,23 +220,22 @@ $(function () {
 
       const siblingEl = $(e.target).closest("button").prev(); // prev returns the immediate previous sibling of the element in the DOM
 
-      // console.log(siblingEl[0].id); // this returns the id of the textarea element
+      // Returns true if the request was successful.
+      console.log(siblingEl);
+      console.log(siblingEl[0].id); // this returns the id of the textarea element
 
       const siblingElId = siblingEl[0].id; // this returns string
 
       // console.log("sibling id", Number(siblingElId)); // converts to Number
 
-      console.log("before loop", scheduleRecord);
+      console.log(
+        "before loop in addSchedule function - scheduleRecord",
+        scheduleRecord
+      );
       console.log("inside schedule", schedule);
       // lets loop now
 
       scheduleRecord = []; // this helped to clear out the array before pushing again - thanks to Abduraghman from AskBCS
-
-      // before we loop through the schedule object and push any new schedule record to the above array, lets check whether the array has records existing in the first instance. We can do that by invoking getFromLocal function and pass it to a variable here
-
-      // const parsedSchedule = getFromLocal();
-
-      // console.log(parsedSchedule[0]);
 
       for (let i = 0; i < schedule.length; i++) {
         if (schedule[i].time === Number(siblingElId)) {
@@ -245,11 +245,12 @@ $(function () {
         if (schedule[i].description !== "") {
           scheduleRecord.push({
             id: schedule[i].id,
+            time: schedule[i].time,
             description: schedule[i].description,
           });
 
           // we should pass the scheduleRecord array to this function and we can check if it is not empty
-          console.log("inside loop ", scheduleRecord);
+          console.log("inside loop scheduleRecord: ", scheduleRecord);
           save(scheduleRecord);
         }
       }
@@ -259,13 +260,16 @@ $(function () {
   // lets create a function here to render any previous schedules from local storage to each individual time slot, we can do this by invoking the getFromLocal function which returns to us an array of objects stored to local storage. We can then use Object.keys to extract the ids of the array of objects and check this against the id of schedules array of objects.
 
   const displayAllSchedules = (parsedSchedule) => {
-    console.log("parsed array from local: ", parsedSchedule);
+    console.log(
+      "parsed schedule inside displayAllSchedules function: ",
+      parsedSchedule
+    );
 
     // lets extract the keys from parsedSchedule
 
-    const keys = Object.keys(parsedSchedule);
+    // const keys = Object.keys(parsedSchedule);
 
-    console.log("keys: ", keys);
+    // console.log("keys length of parsedSchedule: ", keys.length);
 
     // lets create a variable here to store the textarea element
 
@@ -273,19 +277,144 @@ $(function () {
 
     console.log(textareaEl);
 
-    $.each(textareaEl, function (key, value) {
-      console.log("key", key + " value", value.id);
-      if (key == 0 && value.id == 9) {
-        const textarea = $("#" + value.id);
+    $.each(textareaEl, function (key, textarea) {
+      console.log("key", key + " textarea", textarea);
 
-        textarea.val(parsedSchedule[0].description);
+      const text = $("#" + textarea.id);
+
+      for (let i = 0; i < parsedSchedule.length; i++) {
+        if (parsedSchedule.indexOf(schedule[i].description) !== -1) {
+          if (parsedSchedule[i].time == 9 && textarea.id == 9) {
+            // textarea.val(parsedSchedule[i].description);
+
+            console.log("inside loop");
+
+            text.val(parsedSchedule[i].description);
+          }
+        }
+
+        if (parsedSchedule[i].time == 10 && textarea.id == 10) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 11 && textarea.id == 11) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 12 && textarea.id == 12) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 13 && textarea.id == 13) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 14 && textarea.id == 14) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 15 && textarea.id == 15) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 16 && textarea.id == 16) {
+          // textarea.val(parsedSchedule[i].description);
+        }
+
+        if (parsedSchedule[i].time == 17 && textarea.id == 17) {
+          // textarea.val(parsedSchedule[i].description);
+        }
       }
 
-      if (key == 1 && value.id == 10) {
-        const textarea = $("#" + value.id);
+      // if (key == 0 && value.id == 9) {
+      //   const textarea = $("#" + value.id);
 
-        textarea.val(parsedSchedule[1].description);
-      }
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 1 && value.id == 10) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 2 && value.id == 11) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 3 && value.id == 12) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 4 && value.id == 13) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 5 && value.id == 14) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 6 && value.id == 15) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 7 && value.id == 16) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
+
+      // if (key == 8 && value.id == 17) {
+      //   const textarea = $("#" + value.id);
+
+      //   for (let i = 0; i < parsedSchedule.length; i++) {
+      //     if (parsedSchedule[i].id == key) {
+      //       textarea.val(parsedSchedule[i].description);
+      //     }
+      //   }
+      // }
     });
   };
 
