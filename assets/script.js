@@ -2,7 +2,7 @@
 
 I have started again as the previous code was not working correctly to collect the data from local storage and display to the correct textareas - data was saving but then after four schedules stored, the scheduleRecord array would empty and only display the last schedule in the correct textarea. This was a weird behaviour that was unexpected and could not identify. 
 
-I have decided not to store the schedules within an object and push it to a new array, instead will use jquery to target the specific textarea with the specific id and the data in stored in its object and pass these to variables where they will then be saved to local storage and then able to retrieve the said data. 
+I have decided not to store the schedules within an object and push it to a new array, instead will use jquery to target the specific textarea with the specific id and the data - stored in the elements object and pass these to variables where they will be saved to local storage, where we are able to retrieve the said data. 
 
 */
 
@@ -61,8 +61,6 @@ $(document).ready(function () {
     const parsedSchedule = window.localStorage.getItem("schedule")
       ? JSON.parse(window.localStorage.getItem("schedule"))
       : [];
-
-    console.log(parsedSchedule);
 
     // we need to ensure that the array of objects is not empty before we display
 

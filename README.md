@@ -19,10 +19,13 @@ the user refreshes the webpage.
 
 # Working Gif of the final product 
 --
+![Gif image of final application](./work-schedule-capture-gif.gif)
 
 
 
 # Link to the deployed application 
+
+
 
 
 
