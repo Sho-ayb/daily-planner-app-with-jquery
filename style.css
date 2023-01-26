@@ -80,6 +80,19 @@ textarea {
   transition: all 0.3s ease-in-out;
 }
 
-.col-sm-9 {
-  background-color: yellowgreen;
+#clearDiv {
+  height: 150px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+
+.clearAll {
+  position: relative;
+  margin: 0 auto;
+  top: 50%;
+  background-color: #6aa4ff;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
 }

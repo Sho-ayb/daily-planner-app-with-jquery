@@ -111,6 +111,23 @@ $(document).ready(function () {
     });
   };
 
+  // lets create a function here to listen to the clear all button on the page, when the user clicks on this button all schedule data will be wiped from local storage and data in textarea will be cleared
+
+  const clear = () => {
+    $(".clearAll").on("click", function (e) {
+      // lets prevent the page from reloading
+
+      e.preventDefault();
+
+      console.log("clicked clear all");
+
+      window.localStorage.clear("schedule");
+
+      // lets clear up all the text from textareas
+      $("textarea").val("");
+    });
+  };
+
   // lets create an init function here to execute all functions
 
   const init = () => {
@@ -118,6 +135,7 @@ $(document).ready(function () {
     changeTextArea();
     addSchedule();
     displayAllSchedules();
+    clear();
   };
 
   // lets invoke the init function
