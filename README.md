@@ -25,7 +25,7 @@ the user refreshes the webpage.
 
 # Link to the deployed application 
 
-
+![Please find link to the deployed application](https://sho-ayb.github.io/daily-planner-app-with-jquery/)
 
 
 
