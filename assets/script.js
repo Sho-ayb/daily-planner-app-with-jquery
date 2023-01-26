@@ -1,6 +1,6 @@
 /*
 
-I have started again as the previous was not working correctly to collect the data from local storage and display to the correct textareas - data was saving but then after four schedules stored, the scheduleRecord array would empty and only display the last schedule in the correct textarea. This was a weird behaviour that was unexpected and could not identify. 
+I have started again as the previous code was not working correctly to collect the data from local storage and display to the correct textareas - data was saving but then after four schedules stored, the scheduleRecord array would empty and only display the last schedule in the correct textarea. This was a weird behaviour that was unexpected and could not identify. 
 
 I have decided not to store the schedules within an object and push it to a new array, instead will use jquery to target the specific textarea with the specific id and the data in stored in its object and pass these to variables where they will then be saved to local storage and then able to retrieve the said data. 
 
@@ -49,11 +49,6 @@ $(document).ready(function () {
       // lets now save this to local storage
       window.localStorage.setItem("schedule", JSON.stringify(scheduleRecord));
     });
-
-    // for (let i = 9; i < 18; i++) {
-    //   var storedLocal = localStorage.getItem(i);
-    //   $("#" + i).val(storedLocal);
-    // }
   };
 
   // lets create a function here to display all the data stored in local storage to each text area in question
@@ -62,6 +57,29 @@ $(document).ready(function () {
     // lets first retrieve all the data stored from local storage
     // now that we have the data from local storage, let loops through parsedStorage
     // and display each data in the textarea
+
+    const parsedSchedule = window.localStorage.getItem("schedule")
+      ? JSON.parse(window.localStorage.getItem("schedule"))
+      : [];
+
+    console.log(parsedSchedule);
+
+    // we need to ensure that the array of objects is not empty before we display
+
+    if (parsedSchedule.length !== 0) {
+      // now we can loop through each one and display within the correct textarea
+
+      for (let i = 0; i < parsedSchedule.length; i++) {
+        // lets extract the id and the stored data
+
+        const id = parsedSchedule[i].id;
+        const storedData = parsedSchedule[i].storedData;
+
+        // lets any schedule within the array parsedSchedule to the textarea with the id that matches the id above
+
+        $("#" + id).val(storedData);
+      }
+    }
   };
 
   // lets create a function to style the textareas to appear with a different background color based on the current time
@@ -81,15 +99,15 @@ $(document).ready(function () {
     $.each(txtarea, function (key, area) {
       // the present time
       if (Number.parseInt(area.id) === Number.parseInt(currentTime))
-        $(area).css("background-color", "red");
+        $(area).css("background-color", "#F06D3F");
 
       // past time
       if (Number.parseInt(area.id) < Number.parseInt(currentTime))
-        $(area).css("background-color", "grey");
+        $(area).css("background-color", "#DAC496");
 
       // future time
       if (Number.parseInt(area.id) > Number.parseInt(currentTime))
-        $(area).css("background-color", "yellowgreen");
+        $(area).css("background-color", "#92FF87");
     });
   };
 
