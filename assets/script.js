@@ -36,8 +36,8 @@ $(document).ready(function () {
         : [];
 
       // lets extract the id and the value from the textarea
-      var id = $(e.target).siblings("textarea").attr("id");
-      var storedData = $(e.target).siblings("textarea").val();
+      var id = $(e.target).closest("button").siblings("textarea").attr("id");
+      var storedData = $(e.target).closest("button").siblings("textarea").val();
 
       console.log("id", id, "stored data", storedData);
       console.log(e.target);
